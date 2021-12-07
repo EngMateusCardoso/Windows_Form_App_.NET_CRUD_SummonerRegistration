@@ -48,14 +48,116 @@ namespace Uso_de_BD_CRUD
                 dr.Close();
 
             }
+            catch (SqlException ex)
+            {
+                //mostrar o erro
+                MessageBox.Show(ex.Message);
+            }
             finally
             {
                 // 4. Fecha a conexão
-                if (conn != null)
+                if (conn != null) // se tiver dado ou se estiver aberto
                 {
                     conn.Close();
                 }
             }
         }
+
+        private void btnAdicionar_Click(object sender, EventArgs e)
+        {
+            SqlConnection conn = new SqlConnection("Data Source = DESKTOP-K8F68PB; Initial Catalog = InvocadoresLeagueOfLegends; Integrated Security = SSPI");
+            try
+            {
+                // 2. Abre a conexão
+                conn.Open();
+                // 3. Passa conexão para o objeto command
+                SqlCommand cmd = new SqlCommand("insert into InvocadorBasico values(@nomeinvocador, @rank, @divisao)", conn);
+                cmd.Parameters.AddWithValue("@nomeinvocador", txtBoxInvocador.Text);
+                cmd.Parameters.AddWithValue("@rank", comboBoxRank.Text);
+                cmd.Parameters.AddWithValue("@divisao", Convert.ToByte(numboxDivisao.Value));
+                cmd.ExecuteNonQuery();
+                txtBoxInvocador.Text = " ";
+                comboBoxRank.Text = " ";
+            }
+            catch (SqlException ex)
+            {
+                //mostrar o erro
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // 4. Fecha a conexão
+                if (conn != null) // se tiver dado ou se estiver aberto
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            SqlConnection conn = new SqlConnection("Data Source = DESKTOP-K8F68PB; Initial Catalog = InvocadoresLeagueOfLegends; Integrated Security = SSPI");
+            try
+            {
+                // 2. Abre a conexão
+                conn.Open();
+                // 3. Passa conexão para o objeto command
+                SqlCommand cmd = new SqlCommand("DELETE FROM InvocadorBasico WHERE Id_Invocador = @ID", conn);
+                cmd.Parameters.AddWithValue("@ID", Convert.ToInt32(txtBoxID.Text));
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Deletado");
+            }
+            catch (SqlException ex)
+            {
+                //mostrar o erro
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // 4. Fecha a conexão
+                if (conn != null) // se tiver dado ou se estiver aberto
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            SqlConnection conn = new SqlConnection("Data Source = DESKTOP-K8F68PB; Initial Catalog = InvocadoresLeagueOfLegends; Integrated Security = SSPI");
+            try
+            {
+                // 2. Abre a conexão
+                conn.Open();
+                // 3. Passa conexão para o objeto command
+                SqlCommand cmd = new SqlCommand("update InvocadorBasico set NomeInvocador = @nomeinvocador, RankInv = @rank, Divisao = @divisao where Id_Invocador = @ID", conn);
+                cmd.Parameters.AddWithValue("@nomeinvocador", txtBoxInvocador.Text);
+                cmd.Parameters.AddWithValue("@rank", comboBoxRank.Text);
+                cmd.Parameters.AddWithValue("@divisao", Convert.ToByte(numboxDivisao.Value));
+                cmd.Parameters.AddWithValue("@ID", Convert.ToInt32(txtBoxID.Text));
+                cmd.ExecuteNonQuery();
+                txtBoxInvocador.Text = " ";
+                comboBoxRank.Text = " ";
+            }
+            catch (SqlException ex)
+            {
+                //mostrar o erro
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // 4. Fecha a conexão
+                if (conn != null) // se tiver dado ou se estiver aberto
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
     }
 }
