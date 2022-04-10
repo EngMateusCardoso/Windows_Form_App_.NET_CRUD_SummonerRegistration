@@ -17,3 +17,5 @@ To update, select the id and fill in the fields as if you were going to add, but
 ![image](https://user-images.githubusercontent.com/93548287/162595802-42bbd573-18b9-4bf5-a3ad-5b20075f912f.png)
 
 To delete, select the id and click delete.
+<br/>
+you can exit by clicking the "x" or "sair".
